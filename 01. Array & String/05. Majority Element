@@ -31,3 +31,9 @@ class Solution {
     }
 }
 
+
+The given algorithm finds the majority element in an array efficiently using a constant space approach. It initializes a frequency variable and assumes the first element as the majority element. It iterates through the array, updating the majority element and frequency based on encounters with different elements. If the frequency becomes zero, it updates the majority element to the current element. If the current element is not equal to the majority element, it decrements the frequency; otherwise, it increments the frequency. Ultimately, the algorithm returns the majority element found in the array.
+
+
+
+
