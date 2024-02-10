@@ -91,6 +91,9 @@ class Solution {
 6. **Result:**
    - The final value of `maxProfit` represents the maximum profit that can be obtained by buying and selling the stock.
 
+
+Time Complexity :-
+
 This algorithm has a time complexity of O(n), where n is the length of the `prices` array, as it iterates through the array only once. It uses a greedy approach, updating the minimum price and maximum profit as it iterates through the prices.
 
  
