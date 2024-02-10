@@ -1,0 +1,80 @@
+
+
+Problem:-
+
+
+Given an array of integers citations where citations[i] is the number of citations a researcher received for their ith paper, return the researcher's h-index.
+According to the definition of h-index on Wikipedia: The h-index is defined as the maximum value of h such that the given researcher has published at least h papers that have each been cited at least h times.
+
+Solution:-
+
+class Solution {
+    public int hIndex(int[] c) {
+        Arrays.sort(c);  // Step 1: Sort the array in ascending order
+        int res = 0;      // Initialize the result variable to 0
+        int len = c.length; // Get the length of the array
+
+        // Step 2: Iterate through the sorted array
+        for (int i = 0; i < len; i++) {
+            // Step 3: Update the result using the formula: min(c[i], len - i)
+            res = Math.max(Math.min(c[i], len - i), res);
+        }
+
+        // Step 4: Return the calculated H-Index
+        return res;
+    }
+}
+
+
+Explanation:-
+
+Certainly! The provided code is an implementation of the H-Index problem. Let's break down the code and explain each part:
+
+```java
+class Solution {
+    public int hIndex(int[] c) {
+        Arrays.sort(c);  // Step 1: Sort the array in ascending order
+        int res = 0;      // Initialize the result variable to 0
+        int len = c.length; // Get the length of the array
+
+        // Step 2: Iterate through the sorted array
+        for (int i = 0; i < len; i++) {
+            // Step 3: Update the result using the formula: min(c[i], len - i)
+            res = Math.max(Math.min(c[i], len - i), res);
+        }
+
+        // Step 4: Return the calculated H-Index
+        return res;
+    }
+}
+
+
+**Explanation:**
+
+1. **Sorting:**
+   - The array `c` is sorted in ascending order using `Arrays.sort(c)`. Sorting is performed to make it easier to calculate the H-Index in the subsequent steps.
+
+2. **Initialization:**
+   - `res` is initialized to 0. This variable will store the final result, which is the calculated H-Index.
+
+3. **Iteration:**
+   - The code iterates through the sorted array using a `for` loop.
+   - For each element at index `i`, it calculates the minimum value between the current element `c[i]` and the remaining number of elements (`len - i`). This represents the potential number of papers with at least `c[i]` citations.
+   - The maximum of this value and the current `res` is taken to update the result.
+
+4. **Result:**
+   - The calculated H-Index is stored in the variable `res`, and it is returned as the final result.
+
+**Example:**
+Suppose `c = [3, 0, 6, 1, 5]`:
+- After sorting, `c` becomes `[0, 1, 3, 5, 6]`.
+- The loop iterates through the sorted array:
+  - For `i = 0`, `res = Math.max(Math.min(0, 5), 0)`, so `res` remains 0.
+  - For `i = 1`, `res = Math.max(Math.min(1, 4), 0)`, so `res` remains 1.
+  - For `i = 2`, `res = Math.max(Math.min(3, 3), 1)`, so `res` becomes 3.
+  - For `i = 3`, `res = Math.max(Math.min(5, 2), 3)`, so `res` remains 3.
+  - For `i = 4`, `res = Math.max(Math.min(6, 1), 3)`, so `res` remains 3.
+
+The final result is 3, which is the correct H-Index for this example.
+
+This code efficiently calculates the H-Index after sorting the array and iterating through the sorted elements. The time complexity is O(n log n) due to the sorting step, where n is the length of the array.
