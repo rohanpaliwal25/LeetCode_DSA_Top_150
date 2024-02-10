@@ -1,0 +1,38 @@
+
+https://leetcode.com/problems/rotate-array/description/?envType=study-plan-v2&envId=top-interview-150
+
+Problem:-
+
+Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.
+
+Solution :- 
+
+class Solution {
+    public void rotate(int[] nums, int k) {
+        // Handling the case where k is greater than the array length
+        k = k % nums.length;
+
+        // Reverse the entire array
+        reverse(nums, 0, nums.length - 1);
+
+        // Reverse the first k elements
+        reverse(nums, 0, k - 1);
+
+        // Reverse the remaining elements
+        reverse(nums, k, nums.length - 1);
+    }
+
+    // Helper function to reverse the elements in the given range of the array
+    private void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            // Swap elements at start and end indices
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+
+            // Move indices towards the center
+            start++;
+            end--;
+        }
+    }
+}
