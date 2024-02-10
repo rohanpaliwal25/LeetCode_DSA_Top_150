@@ -1,0 +1,41 @@
+Code Link:-
+
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/?envType=study-plan-v2&envId=top-interview-150
+
+Problem :-
+
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+Solution :-
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        // Check if the prices array is empty or has only one element
+        if (prices == null || prices.length <= 1) {
+            return 0; // No profit can be obtained in such cases
+        }
+
+        int maxProfit = 0; // Variable to store the maximum profit
+        int minPrice = prices[0]; // Variable to store the minimum stock price
+
+        // Iterate through the prices array starting from the second day
+        for (int i = 1; i < prices.length; i++) {
+            // Update the minimum stock price if a lower price is encountered
+            minPrice = Math.min(minPrice, prices[i]);
+
+            // Calculate the potential profit if selling on the current day
+            int potentialProfit = prices[i] - minPrice;
+
+            // Update the maximum profit if the potential profit is greater
+            maxProfit = Math.max(maxProfit, potentialProfit);
+        }
+
+        return maxProfit;
+    }
+}
+
+
+ 
+
