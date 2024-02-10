@@ -37,5 +37,61 @@ class Solution {
 }
 
 
+Explanation :- 
+
+Certainly! The problem "121. Best Time to Buy and Sell Stock" involves finding the maximum profit that can be obtained by buying and selling a stock, given an array of prices where the index represents the day and the value represents the stock price. Here's a descriptive Java code with explanations:
+
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        // Check if the prices array is empty or has only one element
+        if (prices == null || prices.length <= 1) {
+            return 0; // No profit can be obtained in such cases
+        }
+
+        int maxProfit = 0; // Variable to store the maximum profit
+        int minPrice = prices[0]; // Variable to store the minimum stock price
+
+        // Iterate through the prices array starting from the second day
+        for (int i = 1; i < prices.length; i++) {
+            // Update the minimum stock price if a lower price is encountered
+            minPrice = Math.min(minPrice, prices[i]);
+
+            // Calculate the potential profit if selling on the current day
+            int potentialProfit = prices[i] - minPrice;
+
+            // Update the maximum profit if the potential profit is greater
+            maxProfit = Math.max(maxProfit, potentialProfit);
+        }
+
+        return maxProfit;
+    }
+}
+
+
+**Explanation:**
+
+1. **Edge Case Handling:**
+   - The code checks if the input array `prices` is `null` or has only one element. In such cases, there's no opportunity to buy and sell, so the function returns 0.
+
+2. **Variables Initialization:**
+   - `maxProfit`: Initialized to 0, it represents the maximum profit that can be obtained.
+   - `minPrice`: Initialized to the first element of `prices`, it represents the minimum stock price encountered so far.
+
+3. **Iteration through Prices:**
+   - The loop iterates through the `prices` array starting from the second day (`i = 1`).
+   - `minPrice` is updated to be the minimum of the current `minPrice` and the stock price on the current day.
+
+4. **Profit Calculation:**
+   - The potential profit on the current day is calculated as the difference between the stock price on the current day and the `minPrice`.
+
+5. **Maximum Profit Update:**
+   - `maxProfit` is updated to be the maximum of the current `maxProfit` and the potential profit calculated.
+
+6. **Result:**
+   - The final value of `maxProfit` represents the maximum profit that can be obtained by buying and selling the stock.
+
+This algorithm has a time complexity of O(n), where n is the length of the `prices` array, as it iterates through the array only once. It uses a greedy approach, updating the minimum price and maximum profit as it iterates through the prices.
+
  
 
