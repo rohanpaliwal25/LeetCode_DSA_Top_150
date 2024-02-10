@@ -1,0 +1,71 @@
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/?envType=study-plan-v2&envId=top-interview-150
+
+Problem:- 
+
+You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
+On each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can buy it then immediately sell it on the same day.
+Find and return the maximum profit you can achieve.
+
+Solution:-
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int maxProfit = 0;
+
+        // Traverse through the array of prices
+        for (int i = 1; i < prices.length; i++) {
+            // If the current price is greater than the previous day's price, there is a potential profit
+            if (prices[i] > prices[i - 1]) {
+                // Add the profit to the total
+                maxProfit += prices[i] - prices[i - 1];
+            }
+            // If the current price is not greater, no transaction is made, move to the next day
+        }
+
+        return maxProfit;
+    }
+}
+
+Certainly! The problem "122. Best Time to Buy and Sell Stock II" asks to find the maximum profit that can be obtained by performing multiple transactions (buying and selling) on a given array of stock prices. Here's a detailed Java code with explanations:
+
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        int maxProfit = 0;
+
+        // Traverse through the array of prices
+        for (int i = 1; i < prices.length; i++) {
+            // If the current price is greater than the previous day's price, there is a potential profit
+            if (prices[i] > prices[i - 1]) {
+                // Add the profit to the total
+                maxProfit += prices[i] - prices[i - 1];
+            }
+            // If the current price is not greater, no transaction is made, move to the next day
+        }
+
+        return maxProfit;
+    }
+}
+
+
+**Explanation:**
+
+1. **Variable Initialization:**
+   - `maxProfit`: This variable is used to keep track of the maximum profit. It is initialized to 0.
+
+2. **Iterating through Prices:**
+   - The `maxProfit` is calculated by iterating through the array of stock prices starting from the second day (`i = 1`).
+   - For each day, it compares the current day's price with the previous day's price.
+
+3. **Profit Calculation:**
+   - If the current day's price is greater than the previous day's price, it means there is an opportunity to make a profit.
+   - The profit is calculated by subtracting the previous day's price from the current day's price.
+   - This profit is added to the `maxProfit` variable.
+
+4. **No Transaction on Decrease:**
+   - If the current day's price is not greater than the previous day's price, no transaction is made, and the loop continues to the next day.
+
+5. **Result:**
+   - The final `maxProfit` variable contains the maximum profit achievable by making multiple transactions.
+
+This algorithm takes advantage of the fact that if there is a consecutive increase in stock prices, each increase can be considered as a separate transaction. The time complexity of this solution is O(n), where n is the length of the prices array.
