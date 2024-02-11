@@ -1,0 +1,193 @@
+https://leetcode.com/problems/insert-delete-getrandom-o1/submissions/1172090610/?envType=study-plan-v2&envId=top-interview-150
+
+Problem:-
+
+Implement the RandomizedSet class:
+
+RandomizedSet() Initializes the RandomizedSet object.
+bool insert(int val) Inserts an item val into the set if not present. Returns true if the item was not present, false otherwise.
+bool remove(int val) Removes an item val from the set if present. Returns true if the item was present, false otherwise.
+int getRandom() Returns a random element from the current set of elements (it's guaranteed that at least one element exists when this method is called). Each element must have the same probability of being returned.
+You must implement the functions of the class such that each function works in average O(1) time complexity.
+
+
+ Solution:-
+
+ import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
+
+class RandomizedSet {
+    // List to store values
+    private ArrayList<Integer> nums;
+    
+    // HashMap to store the index of each value in the list
+    private HashMap<Integer, Integer> indexMap;
+    
+    // Random object for getRandom operation
+    private Random random;
+
+    /** Initialize your data structure here. */
+    public RandomizedSet() {
+        nums = new ArrayList<>();
+        indexMap = new HashMap<>();
+        random = new Random();
+    }
+
+    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+    public boolean insert(int val) {
+        if (indexMap.containsKey(val)) {
+            return false; // Element already exists in the set
+        }
+
+        // Add the value to the end of the list
+        nums.add(val);
+
+        // Store the index of the added value in the HashMap
+        indexMap.put(val, nums.size() - 1);
+
+        return true; // Operation successful
+    }
+
+    /** Removes a value from the set. Returns true if the set contained the specified element. */
+    public boolean remove(int val) {
+        if (!indexMap.containsKey(val)) {
+            return false; // Element not found in the set
+        }
+
+        // Get the index of the value to be removed
+        int indexToRemove = indexMap.get(val);
+
+        // If the element to be removed is not the last element in the list
+        if (indexToRemove < nums.size() - 1) {
+            // Swap the element to be removed with the last element
+            int lastElement = nums.get(nums.size() - 1);
+            nums.set(indexToRemove, lastElement);
+            indexMap.put(lastElement, indexToRemove);
+        }
+
+        // Remove the last element from the list
+        nums.remove(nums.size() - 1);
+
+        // Remove the value from the HashMap
+        indexMap.remove(val);
+
+        return true; // Operation successful
+    }
+
+    /** Get a random element from the set. */
+    public int getRandom() {
+        // Generate a random index within the size of the list
+        int randomIndex = random.nextInt(nums.size());
+
+        // Return the value at the randomly chosen index
+        return nums.get(randomIndex);
+    }
+}
+
+Certainly! The problem "380. Insert Delete GetRandom O(1)" involves designing a data structure that supports three operations - `insert`, `remove`, and `getRandom` - all in constant time, O(1) time complexity. The goal is to implement these operations efficiently. One way to achieve this is by using a combination of a list and a HashMap in Java. Below is the code with detailed explanations:
+
+```java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
+
+class RandomizedSet {
+    // List to store values
+    private ArrayList<Integer> nums;
+    
+    // HashMap to store the index of each value in the list
+    private HashMap<Integer, Integer> indexMap;
+    
+    // Random object for getRandom operation
+    private Random random;
+
+    /** Initialize your data structure here. */
+    public RandomizedSet() {
+        nums = new ArrayList<>();
+        indexMap = new HashMap<>();
+        random = new Random();
+    }
+
+    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+    public boolean insert(int val) {
+        if (indexMap.containsKey(val)) {
+            return false; // Element already exists in the set
+        }
+
+        // Add the value to the end of the list
+        nums.add(val);
+
+        // Store the index of the added value in the HashMap
+        indexMap.put(val, nums.size() - 1);
+
+        return true; // Operation successful
+    }
+
+    /** Removes a value from the set. Returns true if the set contained the specified element. */
+    public boolean remove(int val) {
+        if (!indexMap.containsKey(val)) {
+            return false; // Element not found in the set
+        }
+
+        // Get the index of the value to be removed
+        int indexToRemove = indexMap.get(val);
+
+        // If the element to be removed is not the last element in the list
+        if (indexToRemove < nums.size() - 1) {
+            // Swap the element to be removed with the last element
+            int lastElement = nums.get(nums.size() - 1);
+            nums.set(indexToRemove, lastElement);
+            indexMap.put(lastElement, indexToRemove);
+        }
+
+        // Remove the last element from the list
+        nums.remove(nums.size() - 1);
+
+        // Remove the value from the HashMap
+        indexMap.remove(val);
+
+        return true; // Operation successful
+    }
+
+    /** Get a random element from the set. */
+    public int getRandom() {
+        // Generate a random index within the size of the list
+        int randomIndex = random.nextInt(nums.size());
+
+        // Return the value at the randomly chosen index
+        return nums.get(randomIndex);
+    }
+}
+```
+
+**Explanation:**
+
+1. **Data Structures:**
+   - `nums`: An ArrayList to store the values in the set. ArrayList is used for constant time random access and removal.
+   - `indexMap`: A HashMap to store the index of each value in the `nums` list. This is used to achieve O(1) time complexity for insert and remove operations.
+   - `random`: A Random object for generating a random index during the `getRandom` operation.
+
+2. **`insert` Operation:**
+   - Checks if the value is already present in the set using the `indexMap`.
+   - If not present, adds the value to the end of the `nums` list and stores its index in the `indexMap`.
+
+3. **`remove` Operation:**
+   - Checks if the value is present in the set using the `indexMap`.
+   - If present, gets the index of the value to be removed.
+   - If the value is not the last element in the `nums` list, swaps it with the last element to maintain constant time removal.
+   - Removes the last element from the list and updates the `indexMap` accordingly.
+
+4. **`getRandom` Operation:**
+   - Generates a random index using `Random.nextInt` within the size of the `nums` list.
+   - Returns the value at the randomly chosen index.
+
+**Example Usage:**
+```java
+RandomizedSet obj = new RandomizedSet();
+boolean insertResult = obj.insert(1);  // Returns true
+boolean removeResult = obj.remove(2);  // Returns false (not found)
+int randomElement = obj.getRandom();    // Returns 1
+```
+
+This implementation ensures constant time complexity for `insert`, `remove`, and `getRandom` operations, meeting the requirements of the problem.
