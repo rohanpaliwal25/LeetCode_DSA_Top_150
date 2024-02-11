@@ -1,0 +1,63 @@
+https://leetcode.com/problems/longest-common-prefix/description/?envType=study-plan-v2&envId=top-interview-150
+
+Problem :-
+
+Write a function to find the longest common prefix string amongst an array of strings.
+If there is no common prefix, return an empty string "".
+
+Solution :-
+
+
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        // Check for empty input
+        if (strs == null || strs.length == 0) {
+            return "";
+        }
+
+        // Sort the array of strings
+        Arrays.sort(strs);
+
+        // Take the first and last strings after sorting
+        String first = strs[0];
+        String last = strs[strs.length - 1];
+
+        // Iterate through the characters of the first string
+        int len = Math.min(first.length(), last.length());
+        int i = 0;
+        while (i < len && first.charAt(i) == last.charAt(i)) {
+            i++;
+        }
+
+        return first.substring(0, i); // Return the common prefix found
+    }
+}
+
+
+**Explanation:**
+
+1. **Sorting:**
+   - Sort the array of strings. Sorting ensures that the first and last strings will have the maximum common prefix.
+
+2. **Comparison:**
+   - Take the first and last strings after sorting.
+   - Iterate through the characters of the first string and compare with the corresponding characters in the last string.
+   - Stop when a mismatch is found or the end of either string is reached.
+
+3. **Result:**
+   - Return the common prefix found.
+
+**Illustration:**
+
+Consider the array of strings `strs = ["flower", "flow", "flight"]`:
+
+- After sorting, the array becomes `["flow", "flight", "flower"]`.
+- Take the first string "flow" and the last string "flower".
+- Iterate through the characters:
+  - For the first character 'f', the characters match.
+  - For the second character 'l', the characters match.
+  - For the third character 'o', the characters match.
+  - For the fourth character 'w', the characters match.
+- The final common prefix is "fl".
+
+This optimized approach avoids unnecessary character comparisons and improves the efficiency of finding the longest common prefix.
