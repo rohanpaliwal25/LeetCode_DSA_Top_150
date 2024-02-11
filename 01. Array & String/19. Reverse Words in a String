@@ -1,0 +1,105 @@
+https://leetcode.com/problems/length-of-last-word/?envType=study-plan-v2&envId=top-interview-150
+
+Problem:-
+
+Given an input string s, reverse the order of the words.
+A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
+Return a string of the words in reverse order concatenated by a single space.
+Note that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
+
+Solution I :-
+
+class Solution {
+    public String reverseWords(String s) {
+        String[] wordsArray = s.split("\\s+");
+        StringBuilder str = new StringBuilder();
+        int low=0, high=wordsArray.length-1;
+
+        while(low<=high)
+        {
+           // StringBuilder st = new StringBuilder(x);
+            String temp = wordsArray[low];
+            wordsArray[low] = wordsArray[high];
+            wordsArray[high] = temp;
+            low++;
+            high--;
+
+        }
+        for(int i=0; i<wordsArray.length; i++)
+        {
+            str.append(wordsArray[i]).append(' ');
+        }
+        return str.toString().trim();
+    }
+}
+
+
+Solution II:-
+
+class Solution {
+    public String reverseWords(String s) {
+        char[] chars = s.toCharArray();
+        int n = chars.length;
+
+        // Reverse the entire string
+        reverseArray(chars, 0, n - 1);
+
+        // Reverse individual words in place
+        reverseWordsInPlace(chars, n);
+
+        // Remove extra spaces and convert the character array back to a string
+        return cleanSpaces(chars, n);
+    }
+
+    private void reverseArray(char[] array, int start, int end) {
+        // Swap elements from start to end to reverse the array
+        while (start < end) {
+            char temp = array[start];
+            array[start] = array[end];
+            array[end] = temp;
+            start++;
+            end--;
+        }
+    }
+
+    private void reverseWordsInPlace(char[] chars, int n) {
+        int start = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (chars[i] != ' ') {
+                // Find the start of a word
+                start = i;
+                while (i < n && chars[i] != ' ') {
+                    i++;
+                }
+                // Reverse the word in place
+                reverseArray(chars, start, i - 1);
+            }
+        }
+    }
+
+    private String cleanSpaces(char[] chars, int n) {
+        int i = 0, j = 0;
+
+        while (j < n) {
+            while (j < n && chars[j] == ' ') {
+                j++; // Skip Leading spaces
+            }
+            while (j < n && chars[j] != ' ') {
+                chars[i++] = chars[j++]; // Keep non spaces
+            }
+            while (j < n && chars[j] == ' ') {
+                j++; // Skip Trailing spaces
+            }
+            if (j < n) {
+                chars[i++] = ' '; // Keep only one space
+            }
+        }
+
+        return new String(chars, 0, i);
+    }
+}
+
+
+
+
