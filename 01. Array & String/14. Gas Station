@@ -1,0 +1,118 @@
+https://leetcode.com/problems/gas-station/description/?envType=study-plan-v2&envId=top-interview-150
+
+Problem :- 
+
+There are n gas stations along a circular route, where the amount of gas at the ith station is gas[i].
+You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from the ith station to its next (i + 1)th station. You begin the journey with an empty tank at one of the gas stations.
+Given two integer arrays gas and cost, return the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return -1. If there exists a solution, it is guaranteed to be unique.
+
+Solution :- 
+import java.util.Arrays;
+
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        // Calculate the total sum of gas and cost
+        int gasSum = Arrays.stream(gas).sum();
+        int costSum = Arrays.stream(cost).sum();
+
+        // If the total gas is less than the total cost, a circular tour is not possible
+        if (gasSum < costSum) {
+            return -1;
+        }
+
+        // Initialize variables for the result and the total gas available
+        int res = 0;
+        int total = 0;
+
+        // Iterate through gas stations
+        for (int i = 0; i < gas.length; ++i) {
+            // Calculate the difference between gas and cost at the current station
+            int diff = gas[i] - cost[i];
+
+            // Update the total gas available
+            total += diff;
+
+            // If total becomes negative, start a new tour from the next station
+            if (total < 0) {
+                total = 0;
+                res = i + 1;
+            }
+        }
+
+        return res;
+    }
+}
+
+Certainly! The provided code is another implementation of the "Gas Station" problem. It calculates the total sum of gas and cost and checks if a circular tour is possible. If possible, it then determines the starting index for the circular tour efficiently. Here's the explanation along with an illustration:
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        // Calculate the total sum of gas and cost
+        int gasSum = Arrays.stream(gas).sum();
+        int costSum = Arrays.stream(cost).sum();
+
+        // If the total gas is less than the total cost, a circular tour is not possible
+        if (gasSum < costSum) {
+            return -1;
+        }
+
+        // Initialize variables for the result and the total gas available
+        int res = 0;
+        int total = 0;
+
+        // Iterate through gas stations
+        for (int i = 0; i < gas.length; ++i) {
+            // Calculate the difference between gas and cost at the current station
+            int diff = gas[i] - cost[i];
+
+            // Update the total gas available
+            total += diff;
+
+            // If total becomes negative, start a new tour from the next station
+            if (total < 0) {
+                total = 0;
+                res = i + 1;
+            }
+        }
+
+        return res;
+    }
+}
+```
+
+**Explanation:**
+
+1. **Summing Gas and Cost:**
+   - `gasSum` is calculated as the sum of all elements in the `gas` array using `Arrays.stream(gas).sum()`.
+   - Similarly, `costSum` is calculated as the sum of all elements in the `cost` array.
+
+2. **Checking for Circular Tour Possibility:**
+   - If the total sum of gas (`gasSum`) is less than the total sum of cost (`costSum`), a circular tour is not possible. In such cases, return -1.
+
+3. **Iterating through Gas Stations:**
+   - Initialize `res` (the result) and `total` (the total gas available) to 0.
+   - Iterate through each gas station, and for each station, calculate the difference between gas and cost (`diff`).
+   - Update `total` by adding `diff`.
+
+4. **Checking for a New Tour:**
+   - If `total` becomes negative at any station, it indicates that the current tour cannot be continued.
+   - In such a case, update `res` to the next station (`i + 1`) and reset `total` to 0, starting a new tour.
+
+5. **Result:**
+   - The final result is the starting index for a circular tour.
+
+**Illustration:**
+
+Consider the example where `gas = [1, 2, 3, 4, 5]` and `cost = [3, 4, 5, 1, 2]`:
+
+- Calculate `gasSum` and `costSum`.
+- Since `gasSum` is greater than or equal to `costSum`, proceed with the iteration.
+- As we iterate through the gas stations, calculate the differences, update `total`.
+- When `i = 3`, `total` becomes negative. So, start a new tour from the next station (`res = 4`), and reset `total` to 0.
+- After completing the iteration, the starting index for the circular tour is 3.
+
+This implementation efficiently determines the starting gas station index for a circular tour and runs in O(n) time, where n is the length of the gas and cost arrays.
+
