@@ -1,0 +1,112 @@
+https://leetcode.com/problems/product-of-array-except-self/description/?envType=study-plan-v2&envId=top-interview-150
+
+Problem:-
+
+Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+You must write an algorithm that runs in O(n) time and without using the division operation.
+
+Solution:-
+
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+
+        // Initialize arrays to store the product of elements to the left and right of each index
+        int[] leftProducts = new int[n];
+        int[] rightProducts = new int[n];
+
+        // Initialize the result array
+        int[] result = new int[n];
+
+        // Calculate the product of elements to the left of each index
+        int leftProduct = 1;
+        for (int i = 0; i < n; i++) {
+            leftProducts[i] = leftProduct;
+            leftProduct *= nums[i];
+        }
+
+        // Calculate the product of elements to the right of each index
+        int rightProduct = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            rightProducts[i] = rightProduct;
+            rightProduct *= nums[i];
+        }
+
+        // Calculate the result by multiplying the left and right products for each index
+        for (int i = 0; i < n; i++) {
+            result[i] = leftProducts[i] * rightProducts[i];
+        }
+
+        return result;
+    }
+}
+
+
+Certainly! The problem "Product of Array Except Self" can be solved by calculating the product of all elements to the left and the product of all elements to the right for each element in the array. Here's the Java code with a detailed explanation:
+
+```java
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+
+        // Initialize arrays to store the product of elements to the left and right of each index
+        int[] leftProducts = new int[n];
+        int[] rightProducts = new int[n];
+
+        // Initialize the result array
+        int[] result = new int[n];
+
+        // Calculate the product of elements to the left of each index
+        int leftProduct = 1;
+        for (int i = 0; i < n; i++) {
+            leftProducts[i] = leftProduct;
+            leftProduct *= nums[i];
+        }
+
+        // Calculate the product of elements to the right of each index
+        int rightProduct = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            rightProducts[i] = rightProduct;
+            rightProduct *= nums[i];
+        }
+
+        // Calculate the result by multiplying the left and right products for each index
+        for (int i = 0; i < n; i++) {
+            result[i] = leftProducts[i] * rightProducts[i];
+        }
+
+        return result;
+    }
+}
+```
+
+**Explanation:**
+
+1. **Left Products:**
+   - Create an array `leftProducts` to store the product of elements to the left of each index.
+   - Initialize a variable `leftProduct` to 1.
+   - Iterate through the array from left to right, updating `leftProducts` and `leftProduct` at each step.
+
+2. **Right Products:**
+   - Create an array `rightProducts` to store the product of elements to the right of each index.
+   - Initialize a variable `rightProduct` to 1.
+   - Iterate through the array from right to left, updating `rightProducts` and `rightProduct` at each step.
+
+3. **Result Calculation:**
+   - Create the result array to store the final product for each index.
+   - Iterate through the array, and for each index `i`, calculate `result[i]` by multiplying `leftProducts[i]` and `rightProducts[i]`.
+
+4. **Result Array:**
+   - The result array now contains the product of all elements except the element at the current index.
+
+**Example Usage:**
+```java
+Solution solution = new Solution();
+int[] nums = {1, 2, 3, 4};
+int[] result = solution.productExceptSelf(nums);
+// Result: [24, 12, 8, 6]
+```
+
+This solution runs in O(n) time as required by the problem statement, and it avoids using the division operation. It efficiently calculates the product of all elements except the current element for each index in the array.
+
