@@ -1,0 +1,65 @@
+https://leetcode.com/problems/longest-substring-without-repeating-characters/description/?envType=study-plan-v2&envId=top-interview-150
+
+
+Given a string s, find the length of the longest substring without repeating characters.
+
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if(s.length()==0 || s.length()==1) return s.length();
+        HashSet<Character> map = new HashSet<Character>();
+        int l=0, r=0;
+        int longest = Integer.MIN_VALUE;
+        while(r<s.length())
+        {
+            if(!map.contains(s.charAt(r)))
+            {
+
+                map.add(s.charAt(r));
+                longest = Math.max(longest, r-l+1);
+                r++;
+            }else{
+                map.remove(s.charAt(l));
+                l++;
+            }
+                
+        //r++;
+        }
+    return longest == Integer.MIN_VALUE?0:longest;
+
+    }
+}
+
+
+Certainly! Here are quick steps for revision of the Code 2 for "Longest Substring Without Repeating Characters":
+
+### Quick Steps for Revision:
+
+1. **Initialization:**
+   - Initialize `l`, `r`, and `longest`.
+   - Create a HashSet (`map`) to track unique characters.
+
+2. **Main Loop (`while r < s.length()`):**
+   - Check if `s.charAt(r)` is not in `map`.
+     - If true, add it to `map` and update `longest` using `Math.max(longest, r - l + 1)`.
+     - Increment `r` to expand the window.
+   - If `s.charAt(r)` is in `map` (repeating character):
+     - Remove `s.charAt(l)` from `map`.
+     - Increment `l` to move the window.
+
+3. **Final Result:**
+   - After the loop, the `longest` variable contains the length of the longest substring without repeating characters.
+
+4. **Edge Cases:**
+   - Check for edge cases where the string is empty or has only one character. Return the length in these cases.
+
+### Example:
+   - Input: `s = "abcabcbb"`
+   - Output: `3` (for the substring "abc").
+
+### Key Points:
+   - Use a sliding window approach with two pointers (`l` and `r`).
+   - Maintain a HashSet (`map`) to keep track of unique characters in the current window.
+   - Update `longest` whenever a longer valid substring is found.
+
+These steps should help you quickly review and understand the key aspects of the code.
