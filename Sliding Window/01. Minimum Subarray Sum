@@ -1,0 +1,68 @@
+https://leetcode.com/problems/minimum-size-subarray-sum/description/?envType=study-plan-v2&envId=top-interview-150
+
+
+Problem:-
+
+Given an array of positive integers nums and a positive integer target, return the minimal length of a subarraywhose sum is greater than or equal to target. If there is no such subarray, return 0 instead.
+
+Solution :-
+
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int l=0, r =0, sum=0;
+        int shortest = Integer.MAX_VALUE;
+        while(r < nums.length)
+        {
+            sum += nums[r];
+            if(sum>= target)
+            {
+                while(sum>=target)
+                {
+                    sum -= nums[l];
+                    l++;
+                }
+                shortest = Math.min(shortest, r-l+2);
+            }
+            r++;
+        }
+        return shortest==Integer.MAX_VALUE?0:shortest;
+    }
+}
+
+
+
+
+Certainly! Here are quick revision steps for the "Minimum Size Subarray Sum" problem:
+
+### Quick Steps for Revision:
+
+1. **Initialization:**
+   - Initialize `l`, `r`, `sum`, and `shortest`.
+   - Set `shortest` to `Integer.MAX_VALUE`.
+
+2. **Main Loop (`while r < nums.length`):**
+   - Incrementally add `nums[r]` to `sum`.
+   - Check if `sum` is greater than or equal to the `target`.
+     - If true, enter a nested loop to shrink the window:
+       - While `sum` is still greater than or equal to `target`:
+         - Subtract `nums[l]` from `sum`.
+         - Increment `l` to shrink the window.
+       - Update `shortest` using `Math.min(shortest, r - l + 2)`.
+
+3. **Final Result:**
+   - After the loop, `shortest` contains the length of the minimum size subarray with a sum greater than or equal to the `target`.
+
+4. **Edge Case Check:**
+   - If `shortest` remains equal to `Integer.MAX_VALUE`, there is no valid subarray, return `0`.
+
+### Example:
+   - Input: `target = 7`, `nums = [2,3,1,2,4,3]`
+   - Output: `2` (for the subarray `[4,3]`).
+
+### Key Points:
+   - Use a sliding window approach with two pointers (`l` and `r`).
+   - Maintain a running sum (`sum`) to efficiently calculate subarray sums.
+   - Update `shortest` whenever a subarray with a sum greater than or equal to `target` is found.
+
+These steps should help you quickly review and understand the key aspects of the code for the "Minimum Size Subarray Sum" problem.
+
