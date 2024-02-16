@@ -1,0 +1,66 @@
+https://leetcode.com/problems/word-pattern/description/?envType=study-plan-v2&envId=top-interview-150
+
+Problem:-
+
+Given a pattern and a string s, find if s follows the same pattern.
+Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in s.
+
+
+Solution:-
+
+import java.util.HashMap;
+
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        String[] words = s.split("\\s+");
+        
+        if (pattern.length() != words.length) {
+            return false;  // If lengths are different, patterns cannot match
+        }
+
+        HashMap<Character, String> map = new HashMap<Character, String>();
+        
+        for (int i = 0; i < pattern.length(); ++i) {
+            char currentChar = pattern.charAt(i);
+            String currentWord = words[i];
+
+            if (!map.containsKey(currentChar)) {
+                // Check if the word has been used by another character
+                if (map.containsValue(currentWord)) {
+                    return false;
+                }
+                map.put(currentChar, currentWord);
+            } else {
+                if (!map.get(currentChar).equals(currentWord)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
+
+Certainly! Here are short and concise steps for quick revision:
+
+### Word Pattern
+
+1. **Input Splitting:**
+   - Split the input string `s` into an array of words using "\\s+".
+
+2. **Length Check:**
+   - If lengths of `pattern` and the word array differ, return `false`.
+
+3. **Mapping Characters to Words:**
+   - Use a hash map (`map`) to store character-to-word mappings.
+
+4. **Pattern Matching:**
+   - Iterate through each character in `pattern`.
+   - Check and update the mapping in `map`.
+
+5. **Return Result:**
+   - If the loop completes, return `true`. Otherwise, return `false`.
+
+These steps capture the essential logic of the code for quickly understanding the word pattern problem.
+
+ 
+
