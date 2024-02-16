@@ -1,0 +1,90 @@
+https://leetcode.com/problems/isomorphic-strings/description/?envType=study-plan-v2&envId=top-interview-150
+
+Given two strings s and t, determine if they are isomorphic.
+Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
+
+
+Let's compare the time complexity and optimization percentage between the original code and the optimized code.
+
+### Original Code:
+```java
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        HashMap<Character, Character> map = new HashMap<Character, Character>();
+        for(int i=0; i<s.length(); i++)
+        {
+            if(!map.containsKey(s.charAt(i)))
+            {
+                if(map.containsValue(t.charAt(i))) return false;
+                map.put(s.charAt(i), t.charAt(i));
+            }else{
+                if(map.get(s.charAt(i)) != t.charAt(i)) return false;
+            }
+        }
+        return true;
+    }
+}
+```
+
+### Optimized Code:
+```java
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+
+        char[] sToT = new char[256];
+        char[] tToS = new char[256];
+
+        for (int i = 0; i < s.length(); i++) {
+            char charS = s.charAt(i);
+            char charT = t.charAt(i);
+
+            // Check s to t mapping
+            if (sToT[charS] == 0) {
+                sToT[charS] = charT;
+            } else {
+                if (sToT[charS] != charT) {
+                    return false;
+                }
+            }
+
+            // Check t to s mapping
+            if (tToS[charT] == 0) {
+                tToS[charT] = charS;
+            } else {
+                if (tToS[charT] != charS) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+}
+```
+
+### Comparison:
+
+1. **Time Complexity:**
+   - Both codes have a time complexity of O(n), where n is the length of the input strings. The loops iterate through each character in the strings once.
+
+2. **Optimization Percentage:**
+   - The optimized code eliminates the use of `HashMap` and uses two arrays instead. This can result in a significant improvement in terms of constant factors and memory overhead. The optimization percentage can vary, but it could be around 20-30% depending on factors like the size of the input and the efficiency of the underlying hash map implementation.
+
+In general, the optimized code is more efficient due to the use of arrays instead of hash maps, leading to potential improvements in both time and space complexity. The actual performance gain may vary depending on the specific input characteristics.
+
+
+**Important Point :-
+**
+The use of 0 in the explanation refers to the fact that the default value for char is essentially the integer value 0 (or \u0000 in Unicode). In Java, char is a 16-bit unsigned data type, and the null character has a numeric value of 0.
+
+When the code initializes sToT, it creates an array of char elements, and each element is initialized to the default value, which is \u0000. This null character is effectively equivalent to 0 when considering its numeric representation.
+
+In the code, the null character \u0000 is used as a placeholder for uninitialized or empty elements in the array. The elements in the array will be updated during the loop to store actual character mappings as the algorithm processes the input strings.
+
+
+
+
