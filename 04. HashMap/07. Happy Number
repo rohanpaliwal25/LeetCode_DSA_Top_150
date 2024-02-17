@@ -1,0 +1,64 @@
+
+https://leetcode.com/problems/happy-number/description/?envType=study-plan-v2&envId=top-interview-150
+
+Write an algorithm to determine if a number n is happy.
+
+A happy number is a number defined by the following process:
+
+Starting with any positive integer, replace the number by the sum of the squares of its digits.
+Repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.
+Those numbers for which this process ends in 1 are happy.
+Return true if n is a happy number, and false if not.
+
+
+
+
+
+
+
+class Solution {
+    public boolean isHappy(int n) {
+        HashSet<Integer> s = new HashSet<Integer>();
+        int val, rem =0;
+        while(true)
+        {
+            val = 0; // Resetting value 
+            while(n!=0)
+            {
+                rem = n%10;
+                val += rem*rem;
+                n = n/10;
+            }
+            if(val == 1) return true;
+            else{
+                if(s.contains(val)) return false;
+                else s.add(val);
+            }
+            n = val;
+        }
+    }
+}
+
+Concise Revision Steps:
+
+1. **Objective:**
+   - Determine if a given number is a "happy number."
+
+2. **Data Structures:**
+   - Use a HashSet (`s`) to track encountered values and detect cycles.
+
+3. **Main Loop:**
+   - While true:
+      - Reset `val` to 0 and iterate through the digits to calculate the sum of squares (`val`).
+      - If `val` is 1, return true (happy number).
+      - If `s` contains `val`, return false (non-happy number with a cycle).
+      - Add `val` to `s` and update the current number (`n`).
+
+4. **Conclusion:**
+   - Returns true if the process reaches 1, false if a cycle is detected.
+
+5. **Efficiency:**
+   - HashSet efficiently handles cycle detection, avoiding infinite loops.
+   - O(1) space complexity due to HashSet storing limited values.
+
+This concise summary highlights the key steps in the code, emphasizing the use of a HashSet for cycle detection in the "Happy Number" problem.
