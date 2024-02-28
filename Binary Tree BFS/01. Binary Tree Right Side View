@@ -1,0 +1,70 @@
+https://leetcode.com/problems/binary-tree-right-side-view/?envType=study-plan-v2&envId=top-interview-150
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Problem :-
+
+Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+
+ Example 1:
+
+
+Input: root = [1,2,3,null,5,null,4]
+Output: [1,3,4]
+Example 2:
+
+Input: root = [1,null,3]
+Output: [1,3]
+Example 3:
+
+Input: root = []
+Output: []
+ 
+
+Constraints:
+
+The number of nodes in the tree is in the range [0, 100].
+-100 <= Node.val <= 100
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Solution :-
+
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        
+        // Check if the tree is empty
+        if (root == null) {
+            return res; // Return an empty list if the tree is empty
+        }
+
+        // Queue for level order traversal
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root); // Enqueue the root node to start traversal
+
+        while (!q.isEmpty()) {
+            int size = q.size(); // Number of nodes at the current level
+
+            for (int i = 0; i < size; i++) {
+                TreeNode current = q.poll(); // Dequeue the current node
+
+                // If it's the first node at the current level, add its value to the result
+                if (i == 0) {
+                    res.add(current.val);
+                }
+
+                // Enqueue the right and left children (order matters for right side view)
+                if (current.right != null) {
+                    q.add(current.right);
+                }
+                if (current.left != null) {
+                    q.add(current.left);
+                }
+            }
+        }
+
+        return res; // Return the right side view of the binary tree
+    }
+}
+----------------------------------------------------------------------------------------------------------------
