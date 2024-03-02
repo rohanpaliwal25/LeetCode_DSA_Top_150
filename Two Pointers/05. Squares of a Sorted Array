@@ -1,0 +1,36 @@
+https://leetcode.com/problems/squares-of-a-sorted-array/description/?envType=daily-question&envId=2024-03-02
+
+Problem :- 
+
+Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
+
+Solution :-
+
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+        int len = nums.length;
+        int[] result = new int[len];
+
+        int left = 0, right = len - 1, k = len - 1;
+
+        while (left <= right) {
+            int squaredLeft = nums[left] * nums[left];
+            int squaredRight = nums[right] * nums[right];
+
+            if (squaredLeft > squaredRight) {
+                result[k] = squaredLeft;
+                left++;
+            } else {
+                result[k] = squaredRight;
+                right--;
+            }
+            k--;
+        }
+
+        return result;
+    }
+}
+
+Quick Revision :-
+
+The provided solution uses a two-pointer approach to efficiently merge the squares of the input array's elements in non-decreasing order. Starting from both ends, it compares the absolute values of squared elements and populates the result array with the larger squared values, ensuring a sorted outcome.
