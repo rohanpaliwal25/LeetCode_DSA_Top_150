@@ -1,0 +1,68 @@
+
+
+
+Problem :-
+
+
+Given the root of a binary tree, return the postorder traversal of its nodes' values.
+
+ Example 1:
+
+
+Input: root = [1,null,2,3]
+Output: [3,2,1]
+Example 2:
+
+Input: root = []
+Output: []
+Example 3:
+
+Input: root = [1]
+Output: [1]
+ 
+
+Constraints:
+
+The number of the nodes in the tree is in the range [0, 100].
+-100 <= Node.val <= 100
+
+ ---------------------------------------------------------------------------------------------
+
+Solution 1 :-
+
+public class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        // Check if the tree is empty
+        if (root == null) {
+            return new ArrayList<>();
+        }
+
+        // Stack to simulate the function call stack
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode lastVisitedNode = null;
+        TreeNode current = root;
+        List<Integer> result = new ArrayList<>();
+
+        // Perform iterative postorder traversal
+        while (current != null || !stack.isEmpty()) {
+            if (current != null) {
+                // Traverse the left subtree
+                stack.push(current);
+                current = current.left;
+            } else {
+                // Process the current node
+                TreeNode peekNode = stack.peek();
+                if (peekNode.right != null && peekNode.right != lastVisitedNode) {
+                    // Move to the right subtree
+                    current = peekNode.right;
+                } else {
+                    // Add the value to the result and mark the node as visited
+                    result.add(peekNode.val);
+                    lastVisitedNode = stack.pop();
+                }
+            }
+        }
+
+        return result;
+    }
+}
