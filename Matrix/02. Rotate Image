@@ -1,0 +1,54 @@
+https://leetcode.com/problems/rotate-image/description/?envType=study-plan-v2&envId=top-interview-150
+
+
+You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
+
+You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+
+ 
+
+Example 1:
+
+
+Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [[7,4,1],[8,5,2],[9,6,3]]
+
+
+
+
+Solution 1:-
+
+
+class Solution {
+    public void rotate(int[][] matrix) {
+        
+        int row = matrix.length;
+        int col = matrix[0].length;
+
+        // Step 1: Matrix Transpose
+        for (int i = 0; i < row; ++i) {
+            // Iterate from the main diagonal and swap elements across it
+            for (int j = i + 1; j < col; ++j) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+
+        // Step 2: Reverse Columns
+        for (int j = 0; j < col / 2; j++) {
+            // Iterate through half of the columns and swap elements symmetrically
+            for (int i = 0; i < row; i++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[i][col - j - 1];
+                matrix[i][col - j - 1] = temp;
+            } 
+        }
+    }
+}
+
+
+Summary: -
+
+
+The time complexity of the given `rotate` method is O(N^2), where N is the number of elements in the input matrix. The space complexity is O(1), indicating constant space usage, as the algorithm performs the rotation in-place without requiring additional space that scales with the input size.
