@@ -1,0 +1,107 @@
+https://leetcode.com/problems/minimum-window-substring/description/?envType=study-plan-v2&envId=top-interview-150
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Problem :-
+
+Given two strings s and t of lengths m and n respectively, return the minimum window 
+substring
+ of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+
+The testcases will be generated such that the answer is unique.
+
+ 
+
+Example 1:
+
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+Example 2:
+
+Input: s = "a", t = "a"
+Output: "a"
+Explanation: The entire string s is the minimum window.
+Example 3:
+
+Input: s = "a", t = "aa"
+Output: ""
+Explanation: Both 'a's from t must be included in the window.
+Since the largest window of s only has one 'a', return empty string.
+ 
+
+Constraints:
+
+m == s.length
+n == t.length
+1 <= m, n <= 105
+s and t consist of uppercase and lowercase English letters.
+ 
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+Solution :- 
+
+import java.util.HashMap;
+
+class Solution {
+    public String minWindow(String s, String t) {
+
+        // Create a frequency map for characters in the pattern
+        HashMap<Character, Integer> patternMap = new HashMap<>();
+        for (char ch : t.toCharArray()) {
+            patternMap.put(ch, patternMap.getOrDefault(ch, 0) + 1);
+        }
+
+        int left = 0, right = 0;
+        int minLen = Integer.MAX_VALUE;
+        int minLeft = 0;
+        int requiredChars = t.length();
+
+        // Sliding window approach
+        while (right < s.length()) {
+            char currentChar = s.charAt(right);
+
+            if (patternMap.containsKey(currentChar)) {
+                // Decrease the count of the required character
+                if (patternMap.get(currentChar) > 0) { // to ensure character is part of the pattern
+                    requiredChars--;
+                }
+                patternMap.put(currentChar, patternMap.get(currentChar) - 1);
+            }
+
+            // Contract the window
+            while (requiredChars == 0) {
+                // Update the minimum window length and left pointer
+                if (right - left + 1 < minLen) {
+                    minLen = right - left + 1;
+                    minLeft = left;
+                }
+
+                char leftChar = s.charAt(left);
+                if (patternMap.containsKey(leftChar)) {
+                    // Increase the count of the required character
+                    patternMap.put(leftChar, patternMap.get(leftChar) + 1);
+                    if (patternMap.get(leftChar) > 0) { // to ensure character is part of the pattern
+                        requiredChars++;
+                    }
+                }
+
+                // Move the left pointer to the right
+                left++;
+            }
+
+            // Move the right pointer to the right
+            right++;
+        }
+
+        // Return the minimum window substring
+        return (minLen == Integer.MAX_VALUE) ? "" : s.substring(minLeft, minLeft + minLen);
+    }
+}
+------------------------------------------------------------------------------------------------------------------------------------
+Time Complexity :-
+
+The time complexity of the provided code is O(t + s), where t is the length of the pattern and s is the length of the input string.
