@@ -1,0 +1,79 @@
+
+
+
+Problem :- 
+
+
+Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
+
+Each row must contain the digits 1-9 without repetition.
+Each column must contain the digits 1-9 without repetition.
+Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.
+Note:
+
+A Sudoku board (partially filled) could be valid but is not necessarily solvable.
+Only the filled cells need to be validated according to the mentioned rules.
+ 
+
+
+
+
+
+Solution:-
+
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        
+        for(int i = 0; i < 9; ++i){
+            if(!validRow(board, i) || !validCol(board, i)) return false;
+        }
+
+        for(int i = 0; i < 9; i += 3)
+        {
+            for(int j = 0; j < 9; j += 3)
+            {
+                if(!validBox(board, i, j)) return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean validRow(char[][] board, int row){
+        HashSet<Character> set = new HashSet<>();
+
+        for(int col = 0; col < 9; col++)
+        {
+            char current = board[row][col];
+            if(current != '.' && !set.add(current)) return false;
+        }
+        return true;
+    }
+
+    public boolean validCol(char[][] board, int col){
+        HashSet<Character> set = new HashSet<>();
+
+        for(int row = 0; row < 9; row++)
+        {
+            char current = board[row][col];
+            if(current != '.' && !set.add(current)) return false;
+        }
+        return true;
+    }
+
+    public boolean validBox(char[][] board, int startRow, int startCol){
+        HashSet<Character> set = new HashSet<>();
+
+        for(int row = startRow; row < startRow + 3; row ++)
+        {
+            for(int col = startCol; col < startCol + 3; col++){
+                char current = board[row][col];
+                if(current != '.' && !set.add(current)) return false;
+            }
+
+        }
+        return true;
+    }
+
+
+}
