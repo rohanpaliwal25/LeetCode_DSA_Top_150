@@ -1,0 +1,48 @@
+
+Problem :-
+
+ binary search tree.
+
+ Example 1:
+
+
+Input: nums = [-10,-3,0,5,9]
+Output: [0,-3,9,-10,null,5]
+Explanation: [0,-10,5,null,-3,null,9] is also accepted:
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Solution :- 
+
+class Solution {
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return createBalancedBST(nums, 0, nums.length - 1);
+    }
+
+    public TreeNode createBalancedBST(int[] nums, int low, int high){
+
+        if(low > high) return null;  // Subarray is empty
+
+        int mid = low + (high - low)/2;
+
+        TreeNode root = new TreeNode(nums[mid]);
+
+        root.left = createBalancedBST(nums, low, mid - 1); // construct left subtree
+        root.right = createBalancedBST(nums, mid + 1, high); // construct right subtree
+
+        return root;
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Time & Space complexity :-
+
+Time Complexity: O(N)
+The time complexity is linear, as each element in the sorted array is processed once during the recursive construction of the binary search tree.
+
+Space Complexity: O(log N) on average, O(N) in the worst case
+The space complexity is logarithmic in the average case due to the recursion depth in a balanced binary search tree. In the worst case, it becomes linear if the tree is skewed.
+
+
+
+
+
