@@ -1,0 +1,78 @@
+https://leetcode.com/problems/climbing-stairs/description/?envType=study-plan-v2&envId=top-interview-150
+
+--------------------------------------------------------------------------
+Problem :-
+
+You are climbing a staircase. It takes n steps to reach the top.
+
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+
+ Example 1:
+
+Input: n = 2
+Output: 2
+Explanation: There are two ways to climb to the top.
+1. 1 step + 1 step
+2. 2 steps
+Example 2:
+
+Input: n = 3
+Output: 3
+Explanation: There are three ways to climb to the top.
+1. 1 step + 1 step + 1 step
+2. 1 step + 2 steps
+3. 2 steps + 1 step
+ 
+
+Constraints:
+
+1 <= n <= 45
+--------------------------------------------------------------------------
+
+Solution 1: - 
+class Solution {
+    public int climbStairs(int n) {
+        if(n == 1 || n == 2) return n;
+
+
+        int[] totalWays = new int[n + 1];
+        totalWays[1] = 1;
+        totalWays[2] = 2;
+
+        return climb(n, totalWays);
+    }
+
+    public int climb(int n, int[] totalWays){
+        
+        if(totalWays[n - 1] == 0) totalWays[n - 1] = climb(n-1, totalWays); 
+        if(totalWays[n - 2] == 0) totalWays[n - 2] = climb(n-2, totalWays);
+
+        totalWays[n] = totalWays[n - 1] + totalWays[n - 2];
+
+        return totalWays[n];
+    }
+}
+
+
+The time complexity of the provided code is O(n) and the space complexity is also O(n).
+
+Solution 2 :- 
+
+
+class Solution {
+    public int climbStairs(int n) {
+
+        if(n <= 2) return n;
+        int prev1 = 1, prev2 = 2, current = 0;
+
+        for(int i = 3; i <= n; i++)
+        {
+            current = prev1 + prev2;
+            prev1 = prev2;
+            prev2 = current;
+        }
+        return current;
+    }
+}
+
+The time complexity of the provided code is O(n) and the space complexity is also O(1).
