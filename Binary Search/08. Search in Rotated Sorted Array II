@@ -63,6 +63,17 @@ class Solution {
         return false;
     }
 }
+---------------------
+Follow Up:- Must Read
 
+Yes, the presence of duplicates in the array can affect the runtime complexity of algorithms that operate on the array. 
+
+In the case of binary search, the presence of duplicates can affect the efficiency of the algorithm because it may lead to additional iterations and comparisons during the search process.
+
+When there are duplicate elements in the array, the algorithm may need to perform additional comparisons to handle cases where the target element could be present in multiple positions within the array. This can lead to increased runtime complexity because the algorithm may need to examine more elements before finding the target or determining that it doesn't exist.
+
+Specifically, in the modified binary search algorithm to handle duplicates, we introduced a linear search within the affected range when duplicate elements are encountered. This linear search adds additional iterations to the algorithm, potentially increasing the overall runtime complexity.
+
+Therefore, the presence of duplicates in the array can impact the runtime complexity of algorithms, potentially increasing it due to the need for additional comparisons or iterations to handle duplicate elements.
  
 
